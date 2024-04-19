@@ -1,6 +1,7 @@
 package ca.johnholloway.tacocloud.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class TacoOrder implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date placedAt;
+
+    private LocalDateTime placedAt;
 
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;

@@ -2,16 +2,19 @@ package ca.johnholloway.tacocloud.repository;
 
 import ca.johnholloway.tacocloud.model.Taco;
 import ca.johnholloway.tacocloud.model.TacoOrder;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
-public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
+@Repository
+public interface OrderRepository extends JpaRepository<TacoOrder, Long> {
    // TacoOrder save(TacoOrder tacoOrder);
 
-    List<Taco> findByDeliveryZip(String deliveryZip);
+//    List<Taco> findByDeliveryZip(String deliveryZip);
 
     /*
     readOrdersByDeliveryZipAndPlacedAtBetween() will be parsed by Spring Framework
@@ -20,11 +23,18 @@ public interface OrderRepository extends CrudRepository<TacoOrder, Long> {
 
     This method will be created by the framework automatically by parsing the name of the method and the parameters.
      */
-    List<TacoOrder> readOrdersByDeliveryZipAndPlaceAtBetween(
-            String deliveryZip, Date startDate, Date endDate);
+//    List<TacoOrder> readOrdersByDeliveryZipAndPlacedAtBetween(
+//            String deliveryZip, Date startDate, Date endDate);
 
-    List<TacoOrder> findDeliveryToAndDeliveryCityAllIgnoreCase(
-            String deliveryTo, String deliveryCity);
+
+
+    /*
+    Issue: Original name from book : readByDeliveryToAndDeliveryCityAllIgnoreCase() didnt work
+    renamed to findOrdersByDeliveryNameAndDeliveryCityAllIgnoreCase() and was able to build and run successfully
+    -Have not yet tried calling the method
+     */
+//    List<TacoOrder> findOrdersByDeliveryNameAndDeliveryCityAllIgnoreCase(
+//            String deliveryName, String deliveryCity);
 
     /*
     Read more on @Query annotation as book is vague
