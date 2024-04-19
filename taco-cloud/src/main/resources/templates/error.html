@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang='en'
+      xmlns='http://www.w3.org/1999/xhtml'
+      xmlns:th='http://www.thymeleaf.org'>
 <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>Error!!</title>
 </head>
 <body>
 <h1>Error!</h1>
-<h2>You done goofed!</h2>
-<a th:href="@{/}">Back to home</a>
+<a th:href='@{/}'>Back to home</a><br/>
+<img th:src='@{/images/cat-error.jpeg}' alt='cat-error cartoon'/>
+
 </body>
 </html>

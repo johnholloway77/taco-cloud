@@ -1,4 +1,4 @@
-package ca.johnholloway.tacocloud.components.config;
+package ca.johnholloway.tacocloud.component.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
