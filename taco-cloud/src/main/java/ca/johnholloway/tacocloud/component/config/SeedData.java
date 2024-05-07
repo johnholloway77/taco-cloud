@@ -18,8 +18,11 @@ This class is to populate the database with stuff upon running.
 public class SeedData implements CommandLineRunner{
 
 
-    @Autowired
-    private IngredientRepository repo;
+    //@Autowired
+    private final IngredientRepository repo;
+    public SeedData(IngredientRepository repo){
+        this.repo = repo;
+    }
 
     @Override
     public void run(String... args) throws Exception{

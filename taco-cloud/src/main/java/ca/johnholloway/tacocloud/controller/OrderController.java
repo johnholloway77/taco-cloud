@@ -14,7 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.time.LocalDateTime;
 
-//@Slf4j
+@Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
@@ -42,7 +42,7 @@ public class OrderController {
 
         order.setPlacedAt(LocalDateTime.now());
         orderRepo.save(order);
-        //log.info("Order submitted: {}", order);
+        log.info("Order submitted: {}", order);
         sessionStatus.setComplete();
 
         return "redirect:/";
