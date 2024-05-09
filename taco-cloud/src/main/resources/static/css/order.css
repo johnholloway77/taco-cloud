@@ -1,0 +1,14 @@
+.form-container {
+    display: flex; /* Use flexbox */
+    width: fit-content;
+}
+
+.address-group {
+    flex: 1; /* Allow each text group to grow and take up equal space */
+    margin-right: 20px; /* Add some spacing between the text groups */
+}
+
+/* Adjust margin-right for the last text group to remove extra spacing */
+.address-group:last-child {
+    margin-right: 0;
+}
