@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class TacoUDRUtils {
 
     public static TacoUDT toTacoUDT(Taco taco){
-        return new TacoUDT(taco.getName(), taco.getIngredients());
+        return new TacoUDT(taco.getId(), taco.getName(), taco.getCreatedAt(), taco.getIngredients());
 
     }
 

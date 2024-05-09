@@ -1,7 +1,10 @@
 package ca.johnholloway.tacocloud.controller;
 
+import ca.johnholloway.tacocloud.model.Taco;
 import ca.johnholloway.tacocloud.model.TacoOrder;
 import ca.johnholloway.tacocloud.repository.OrderRepository;
+import ca.johnholloway.tacocloud.repository.TacoRepository;
+import ca.johnholloway.tacocloud.udt.TacoUDT;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,9 +24,11 @@ import java.time.LocalDateTime;
 public class OrderController {
 
     private OrderRepository orderRepo;
+    private final TacoRepository tacoRepository;
 
-    public OrderController(OrderRepository orderRepo) {
+    public OrderController(OrderRepository orderRepo, TacoRepository tacoRepository) {
         this.orderRepo = orderRepo;
+        this.tacoRepository = tacoRepository;
     }
 
     @GetMapping("/current")
@@ -43,6 +48,18 @@ public class OrderController {
         order.setPlacedAt(LocalDateTime.now());
         orderRepo.save(order);
         log.info("Order submitted: {}", order);
+
+        for (TacoUDT tacoUDT: order.getTacos()) {
+
+            Taco taco = new Taco();
+            taco.setId(tacoUDT.getId());
+            taco.setName(tacoUDT.getName());
+            taco.setCreatedAt(tacoUDT.getCreatedAt());
+            taco.setIngredients(tacoUDT.getIngredients());
+            tacoRepository.save(taco);
+            log.info("Recorded taco: {}", taco);
+        }
+
         sessionStatus.setComplete();
 
         return "redirect:/";
