@@ -6,6 +6,8 @@ import ca.johnholloway.tacocloud.model.Taco;
 import ca.johnholloway.tacocloud.model.TacoOrder;
 
 import ca.johnholloway.tacocloud.repository.IngredientRepository;
+import ca.johnholloway.tacocloud.udt.TacoUDRUtils;
+import ca.johnholloway.tacocloud.udt.TacoUDT;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
 
-    //@Autowired
+    @Autowired
     public DesignTacoController(IngredientRepository ingredientRepository){
         this.ingredientRepository = ingredientRepository;
     }
@@ -72,10 +74,11 @@ public class DesignTacoController {
             Errors errors,
             @ModelAttribute TacoOrder tacoOrder){
         if(errors.hasErrors()){
+            log.info("Error with taco: {}", taco);
             return "design";
         }
 
-        tacoOrder.addTaco(taco);
+        tacoOrder.addTaco(new TacoUDT(taco.getName(), taco.getIngredients()));
         log.info("Processing taco: {}", taco);
 
         return "redirect:/orders/current";

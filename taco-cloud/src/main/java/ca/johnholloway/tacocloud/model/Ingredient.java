@@ -1,22 +1,21 @@
 package ca.johnholloway.tacocloud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import org.springframework.data.cassandra.core.mapping.PrimaryKey;
+import org.springframework.data.cassandra.core.mapping.Table;
 import lombok.*;
 
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force = true)
-@RequiredArgsConstructor
+@Table("ingredients")
 public class Ingredient {
 
-    @Id
+    @PrimaryKey
     private String id;
 
-    private final String name;
-    private final Type type;
+    private String name;
+    private Type type;
 
 
     public enum Type{
