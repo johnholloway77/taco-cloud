@@ -1,22 +1,22 @@
 package ca.johnholloway.tacocloud.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 
 @Data
-@Entity
+@Document(collection = "ingredient")
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PUBLIC, force = true)
-@RequiredArgsConstructor
 public class Ingredient {
 
-    @Id
+    @MongoId
     private String id;
 
-    private final String name;
-    private final Type type;
+    private String name;
+    private Type type;
 
 
     public enum Type{
