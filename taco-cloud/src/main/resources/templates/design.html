@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'
       xmlns='http://www.w3.org/1999/xhtml'
-      xmlns:th='http://www.thymeleaf.org'>
+      xmlns:th='http://www.thymeleaf.org' xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset='UTF-8'>
   <title>Taco Cloud</title>
@@ -14,13 +14,20 @@
 
 <a th:href='@{/}'>Back to home</a><br/>
 
+<div sec:authorize="isAuthenticated()">
+  <form method="post" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+  </form>
+</div>
+
+
 <div class="logo-container">
   <img th:src='@{/images/taco-cloud.png}' alt='Taco Cloud logo'/>
   <h1>Design your taco!</h1>
 </div>
 
 
-<form method='POST' th:object='${taco}' >
+<form method='POST' th:object='${taco}' th:action="@{/design}">
   <div class='grid'>
     <div class='ingredient-group' id='wraps'>
       <h3>Designate your wrap:</h3>
@@ -75,5 +82,8 @@
     </div>
   </div>
 </form>
+
+
+
 </body>
 </html>

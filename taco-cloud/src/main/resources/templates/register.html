@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Taco Cloud - Registration</title>
+    <link rel="stylesheet" th:href='@{/css/logo-container.css}'>
+    <link rel="stylesheet" th:href='@{/css/registration.css}'>
+</head>
+<body>
+
+<div class="logo-container">
+    <img th:src='@{/images/taco-cloud.png}' alt='Taco Cloud logo'/>
+    <h1>Registration</h1>
+</div>
+
+<form method="post" th:action="@{/register}" id="registrationForm">
+
+    <div class="grid">
+        <div class="reg-field">
+            <label for="username">Username: </label>
+            <input type="text" name="username" id="username"/><br />
+        </div>
+
+        <div class="reg-field">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" /> <br />
+        </div>
+        <div class="reg-field">
+            <label for="confirm">Confirm Password: </label>
+            <input type="password" name="confirm" id="confirm"/><br/>
+        </div>
+        <div class="reg-field">
+            <label for="fullname">Fullname: </label>
+            <input type="text" name="fullname" id="fullname"/><br />
+        </div>
+        <div class="reg-field">
+            <label for="street">Street: </label>
+            <input type="text" name="street" id="street" /><br/>
+        </div>
+        <div class="reg-field">
+            <label for="city">City: </label>
+            <input type="text" name="city" id="city" /><br />
+        </div>
+        <div class="reg-field">
+            <label for="state">State: </label>
+            <input type="text" name="state" id="state" /><br />
+        </div>
+        <div class="reg-field">
+            <label for="zip">Zip: </label>
+            <input type="text" name="zip" id="zip" /><br />
+        </div>
+        <div class="reg-field">
+            <label for="phone">Phone: </label>
+            <input type="tel" name="phone" id="phone" /><br />
+        </div>
+    </div>
+
+    <input type="submit" value="Register" />
+
+</form>
+
+</body>
+</html>

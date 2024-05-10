@@ -1,4 +1,4 @@
-package ca.johnholloway.tacocloud.component.config;
+package ca.johnholloway.tacocloud.config;
 
 import ca.johnholloway.tacocloud.model.Ingredient;
 import ca.johnholloway.tacocloud.repository.IngredientRepository;

@@ -1,14 +1,55 @@
 <!DOCTYPE html>
 <html lang='en'
   xmlns='http://www.w3.org/1999/xhtml'
-  xmlns:th='http://www.thymeleaf.org'>
+  xmlns:th='http://www.thymeleaf.org'
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset='UTF-8'>
     <title>Taco Cloud</title>
 </head>
 <body>
-<h1>Welcome to...</h1>
-<img th:src='@{/images/taco-cloud.png}' alt='Taco Cloud logo'/><br/>
-<a th:href='@{/design}'>Design Taco</a>
-</body>
+
+<div sec:authorize="isAuthenticated()">
+    <form method="post" th:action="@{/logout}">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+    <h1>Welcome to...</h1>
+    <img th:src='@{/images/taco-cloud.png}' alt='Taco Cloud logo'/><br/>
+
+    <div th:if="${message}" class="processed_taco_message">
+        <p th:text="${message}">Order processed text</p>
+        <div class="processed_taco_list" th:each="taco : ${tacos}">
+            <ol>
+                <div class="processed_taco">
+                    <span th:text="${taco.name}"></span>
+                    <ul>
+                        <div th:each="ingredient : ${taco.getIngredients()}">
+                            <li th:text="${ingredient.name}">Ingredient text</li>
+                        </div>
+                    </ul>
+                </div>
+
+
+            </ol>
+        </div>
+    </div>
+
+    <div th:if="!${message}" class="processed_taco_message">
+        <p>Please continue to place a new order for tacos!</p>
+    </div>
+
+    <div sec:authorize="!isAuthenticated()">
+        <a th:href='@{/register}'>Register</a>
+        <a th:href='@{/login}'>Login</a><br />
+    </div>
+
+
+    <span sec:authorize="isAuthenticated()">
+        <a th:href='@{/design}'>Design Taco</a>
+    </span>
+
+
+    </body>
 </html>
