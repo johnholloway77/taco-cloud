@@ -27,6 +27,7 @@ public class TacoOrder implements Serializable {
 
 
     private LocalDateTime placedAt;
+    private String placedAtFormatted;
 
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
@@ -60,5 +61,9 @@ public class TacoOrder implements Serializable {
     private List<Taco> tacos = new ArrayList<>();
     public void addTaco(Taco taco) {
         this.tacos.add(taco);
+    }
+
+    public void setPlacedAtFormatted(String formattedPlacedAt) {
+        this.placedAtFormatted = formattedPlacedAt;
     }
 }

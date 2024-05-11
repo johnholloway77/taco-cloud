@@ -1,17 +1,18 @@
 package ca.johnholloway.tacocloud.repository;
 
-import ca.johnholloway.tacocloud.model.Taco;
 import ca.johnholloway.tacocloud.model.TacoOrder;
+import ca.johnholloway.tacocloud.model.TacoUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<TacoOrder, Long> {
+    
+    List<TacoOrder> findByTacoUserOrderByPlacedAtDesc(TacoUser tacoUser, Pageable pageable);
+    
    // TacoOrder save(TacoOrder tacoOrder);
 
 //    List<Taco> findByDeliveryZip(String deliveryZip);

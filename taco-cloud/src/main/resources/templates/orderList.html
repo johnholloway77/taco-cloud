@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang='en'
+      xmlns='http://www.w3.org/1999/xhtml'
+      xmlns:th='http://www.thymeleaf.org'
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Taco Cloud - Order List</title>
+</head>
+<body>
+
+  <a th:href='@{/}'>Back to home</a><br/>
+  <div sec:authorize="isAuthenticated()">
+    <form method="post" th:action="@{/logout}">
+      <input type="submit" value="Logout"/>
+    </form>
+  </div>
+
+  <div class="logo-container">
+    <img th:src='@{/images/taco-cloud.png}' alt='Taco Cloud logo'/>
+    <h1>Your orders!</h1>
+  </div>
+
+  <div class="orderList">
+    <div class="orders" th:if="${orders}">
+      <ol>
+
+          <li class="tacoUser_orders" th:each="tacoOrder : ${orders}">
+            <h3 th:text='${tacoOrder.placedAtFormatted}'>order time</h3>
+
+            <ol>
+              <div  class="tacoUser_orders_tacos" th:each="taco : ${tacoOrder.getTacos()}">
+                <li th:text="${taco.name}"> </li>
+              </div>
+
+            </ol>
+
+          </li>
+
+
+      </ol>
+    </div>
+
+    <div class="orders" th:if="${orders.isEmpty()}">
+      <p>You have not ordered any tacos</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
