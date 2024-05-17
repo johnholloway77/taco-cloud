@@ -16,7 +16,7 @@ public class profileConfig {
     @Profile("test")
     public String printTest(){
         message = "\n********\n\tIf you see this output it is because the application is running with test profile\n********\n";
-        //log.info(message);
+        log.info(message);
         return message;
     }
 
@@ -24,7 +24,7 @@ public class profileConfig {
     @Profile("!test")
     public String printNotTest(){
         message = "\n----------\n\tIf you see this output it is because the application is not using test profile\n----------\n";
-        //log.info(message);
+        log.info(message);
         return message;
     }
 }

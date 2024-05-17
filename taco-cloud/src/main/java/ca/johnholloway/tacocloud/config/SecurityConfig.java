@@ -9,11 +9,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.Arrays;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -41,6 +44,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .authorizeHttpRequests(
+
                         authz -> authz.requestMatchers("/design", "/orders", "/orders/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers(toH2Console()).permitAll()
@@ -55,25 +59,25 @@ public class SecurityConfig {
 
 
 
-    /*
+
     //Create users in memory using UserDetailsService & InMemoryUserDetailsManager
 
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder){
-        List<UserDetails> userList = new ArrayList<>();
-        userList.add(new TacoUser(
-                "Woody",
-                encoder.encode("password"),
-                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))
-        ));
+//    @Bean
+//    public UserDetailsService userDetailsService(PasswordEncoder encoder){
+//        List<UserDetails> userList = new ArrayList<>();
+//        userList.add(new TacoUser(
+//                "Woody",
+//                encoder.encode("password"),
+//                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))
+//        ));
+//
+//        userList.add(new TacoUser(
+//                "Buzz",
+//                encoder.encode("password"),
+//                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))
+//        ));
+//        return new InMemoryUserDetailsManager(userList);
+//    }
 
-        userList.add(new TacoUser(
-                "Buzz",
-                encoder.encode("password"),
-                Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))
-        ));
-        return new InMemoryUserDetailsManager(userList);
-    }
 
-    */
 }
