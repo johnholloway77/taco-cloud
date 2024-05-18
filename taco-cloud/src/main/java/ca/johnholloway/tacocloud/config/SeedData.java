@@ -2,10 +2,12 @@ package ca.johnholloway.tacocloud.config;
 
 import ca.johnholloway.tacocloud.model.Ingredient;
 import ca.johnholloway.tacocloud.model.Taco;
+import ca.johnholloway.tacocloud.model.TacoUser;
 import ca.johnholloway.tacocloud.repository.IngredientRepository;
 import ca.johnholloway.tacocloud.repository.TacoRepository;
 import ca.johnholloway.tacocloud.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -21,13 +23,16 @@ public class SeedData implements CommandLineRunner{
     private IngredientRepository repo;
     private TacoRepository tacoRepository;
     private UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public SeedData(IngredientRepository ingredientRepository,
                     TacoRepository tacoRepository,
-                    UserRepository userRepository){
+                    UserRepository userRepository,
+                    PasswordEncoder passwordEncoder){
         this.repo = ingredientRepository;
         this.tacoRepository = tacoRepository;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -90,6 +95,10 @@ public class SeedData implements CommandLineRunner{
                t.setIngredients(Arrays.asList(cheddar, monterrey));
                tacoRepository.save(t);
            }
+
+           //I swear to God if I have to manually create a new user for everytime I rebuild the app I will go insane!!
+           TacoUser tacoUser = new TacoUser("john", passwordEncoder.encode("password"), "John Holloway", "123 Fake Street", "CityVille", "Narnia", "11111", "555-867-5309");
+           userRepository.save(tacoUser);
 
             System.out.println("public void run() has completed");
     }

@@ -6,17 +6,22 @@ import ca.johnholloway.tacocloud.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -47,6 +52,9 @@ public class SecurityConfig {
 
                         authz -> authz.requestMatchers("/design", "/orders", "/orders/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/api/ingredients").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/ingredients").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE,"/api/ingredients").hasRole("ADMIN")
                                 .requestMatchers(toH2Console()).permitAll()
                                 .anyRequest().permitAll()
                 )
@@ -56,7 +64,6 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .build();
     }
-
 
 
 
